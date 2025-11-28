@@ -1,0 +1,27 @@
+meta {
+  name: Register User
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url}}/User
+  body: json
+  auth: inherit
+}
+
+headers {
+  Accept-Language: pt
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "skdjfkls"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
