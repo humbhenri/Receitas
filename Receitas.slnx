@@ -5,11 +5,13 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/Backend/" />
-  <Folder Name="/Shared/" />
+  <Folder Name="/Shared/">
+    <Project Path="Shared/MyRecipeBook.Exceptions/MyRecipeBook.Exceptions.csproj" />
+  </Folder>
   <Project Path="Backend/MyRecipeBook.API/MyRecipeBookAPI.csproj" />
   <Project Path="Backend/MyRecipeBook.Application/MyRecipeBook.Application.csproj" />
   <Project Path="Backend/MyRecipeBook.Domain/MyRecipeBook.Domain.csproj" />
   <Project Path="Backend/MyRecipeBook.Infrastructure/MyRecipeBook.Infrastructure.csproj" />
   <Project Path="Shared/MyRecipeBook.Communication/MyRecipeBook.Communication.csproj" />
-  <Project Path="Shared/MyRecipeBook.Exceptions/MyRecipeBook.Exceptions.csproj" />
+  <!-- <Project Path="Shared/MyRecipeBook.Exceptions/MyRecipeBook.Exceptions.csproj" /> -->
 </Solution>

@@ -13,7 +13,7 @@ public class RegisterUserUseCase
 
         return new ResponseRegisteredUserJson
         {
-            name = request.Name
+            Name = request.Name
         };
     }
 

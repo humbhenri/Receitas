@@ -5,5 +5,31 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+<!-- 
+  <ItemGroup>
+    <Compile Update="ResourceMessagesException.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResourceMessagesException.resx</DependentUpon>
+    </Compile>
+  </ItemGroup> -->
+
+  <!-- <ItemGroup>
+    <EmbeddedResource Update="ResourceMessagesException.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceMessagesException.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup> -->
+
+<ItemGroup>
+<EmbeddedResource Update="Messages.resx">
+  <Generator>MSBuild:Compile</Generator>
+  <StronglyTypedFileName>Messages.Designer.cs</StronglyTypedFileName>
+  <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+  <StronglyTypedNamespace>MyRecipeBook.Exceptions</StronglyTypedNamespace>
+  <StronglyTypedClassName>Messages</StronglyTypedClassName>
+  <PublicClass>true</PublicClass>
+</EmbeddedResource>
+</ItemGroup>
 
 </Project>
