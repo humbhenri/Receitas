@@ -1,3 +1,5 @@
+using MyRecipeBookAPI.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -20,6 +22,7 @@ if (app.Environment.IsDevelopment())
 
 // app.UseHttpsRedirection();
 
+app.UseMiddleware(typeof(CultureMiddleware));
 app.UseRouting();
 app.MapControllers();
 app.Run();
