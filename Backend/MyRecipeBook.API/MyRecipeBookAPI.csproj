@@ -8,8 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.0.1" />
     <ProjectReference Include="../../Shared/MyRecipeBook.Communication/MyRecipeBook.Communication.csproj" />
-    <ProjectReference Include="../../Shared/MyRecipeBook.Communication/MyRecipeBook.Exceptions.csproj" />
+    <ProjectReference Include="../../Shared/MyRecipeBook.Exceptions/MyRecipeBook.Exceptions.csproj" />
     <ProjectReference Include="../MyRecipeBook.Application/MyRecipeBook.Application.csproj" />
   </ItemGroup>
 
