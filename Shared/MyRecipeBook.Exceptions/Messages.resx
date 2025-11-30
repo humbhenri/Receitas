@@ -133,4 +133,8 @@
     <value>Password cannot be empty</value>
     <comment/>
   </data>
+  <data name="unknown_error" xml:space="preserve">
+    <value>Unknown error</value>
+    <comment/>
+  </data>
 </root>

@@ -1,0 +1,39 @@
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using MyRecipeBook.Communication.Responses;
+using MyRecipeBook.Exceptions;
+using MyRecipeBook.Exceptions.ExceptionsBase;
+
+namespace MyRecipeBookAPI.Filters;
+
+public class ExceptionFilter : IExceptionFilter
+{
+    public void OnException(ExceptionContext context)
+    {
+        if (context.Exception is MyRecipeBookException)
+        {
+            HandleProjectException(context);
+        }
+        else
+        {
+            ThrowUnknownException(context);
+        }
+    }
+
+    private void HandleProjectException(ExceptionContext context)
+    {
+        if (context.Exception is ErrorOnValidationException)
+        {
+            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
+            var errors = (context.Exception as ErrorOnValidationException).ErrorMessages;
+            context.Result = new BadRequestObjectResult(new ResponseErrorJson(errors));
+        }
+    }
+
+    private void ThrowUnknownException(ExceptionContext context)
+    {
+        context.HttpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+        context.Result = new ObjectResult(new ResponseErrorJson(Messages.unknown_error));
+    }
+}

@@ -18,7 +18,7 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
-    public IActionResult Register(RegisterUserJson registerUserJson)
+    public IActionResult Register(RequestRegisterUserJson registerUserJson)
     {
         var useCase = new RegisterUserUseCase();
         var result = useCase.Execute(registerUserJson);
