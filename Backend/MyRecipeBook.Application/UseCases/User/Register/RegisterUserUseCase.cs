@@ -1,8 +1,9 @@
+using Mapster;
+using MyRecipeBook.Application.Services.Mappings;
+using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Exceptions.ExceptionsBase;
-
-namespace MyRecipeBook.Application.UseCases.User.Register;
 
 public class RegisterUserUseCase
 {
@@ -11,6 +12,11 @@ public class RegisterUserUseCase
     {
 
         validate(request);
+
+        MappingConfigurations.Configure();
+
+        var user = request.Adapt<MyRecipeBook.Domain.Entities.User>();
+        // user.Password = _passwordEncripter.Encrypt(request.Password);
 
         return new ResponseRegisteredUserJson
         {
