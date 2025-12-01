@@ -3,7 +3,7 @@ using System.Text;
 
 namespace MyRecipeBook.Application.Services.Crypto;
 
-public class PasswordEncripter
+public class PasswordEncrypter
 {
     public string Encrypt(string password)
     {

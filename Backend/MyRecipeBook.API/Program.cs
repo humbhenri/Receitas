@@ -1,5 +1,7 @@
 using MyRecipeBookAPI.Filters;
 using MyRecipeBookAPI.Middleware;
+using MyRecipeBook.Application;
+using MyRecipeBook.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddMvc(options => options.Filters.Add(
     typeof(ExceptionFilter)
 ));
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 

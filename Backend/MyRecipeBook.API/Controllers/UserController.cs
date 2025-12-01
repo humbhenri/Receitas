@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
@@ -18,10 +19,11 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
-    public IActionResult Register(RequestRegisterUserJson registerUserJson)
+    public async Task<IActionResult> Register(
+        [FromServices] IRegisterUserUseCase useCase,
+        [FromBody] RequestRegisterUserJson registerUserJson)
     {
-        var useCase = new RegisterUserUseCase();
-        var result = useCase.Execute(registerUserJson);
+        var result = await useCase.Execute(registerUserJson);
         return Created(string.Empty, result);
     }
 }
