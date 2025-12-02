@@ -5,6 +5,7 @@ using MyRecipeBook.Application.Services.Mappings;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
+using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 
@@ -14,12 +15,14 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IUserWriteOnlyRepository _writeOnlyRepository;
     private readonly IUserReadOnlyRepository _readOnlyRepository;
     private readonly PasswordEncrypter _passwordEncrypter;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public RegisterUserUseCase(IUserReadOnlyRepository readOnlyRepository, IUserWriteOnlyRepository writeOnlyRepository, PasswordEncrypter passwordEncrypter)
+    public RegisterUserUseCase(IUserReadOnlyRepository readOnlyRepository, IUserWriteOnlyRepository writeOnlyRepository, PasswordEncrypter passwordEncrypter, IUnitOfWork unitOfWork)
     {
         this._writeOnlyRepository = writeOnlyRepository;
         this._readOnlyRepository = readOnlyRepository;
         this._passwordEncrypter = passwordEncrypter;
+        this._unitOfWork = unitOfWork;
     }
     
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
@@ -32,6 +35,8 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         user.Password = _passwordEncrypter.Encrypt(request.Password);
 
         await _writeOnlyRepository.Add(user);
+
+        await _unitOfWork.Commit();
 
         return new ResponseRegisteredUserJson
         {
