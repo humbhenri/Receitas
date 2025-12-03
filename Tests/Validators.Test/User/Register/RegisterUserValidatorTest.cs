@@ -1,5 +1,6 @@
 using Commons.Requests;
 using MyRecipeBook.Application.UseCases.User.Register;
+using Shouldly;
 
 namespace Validators.Test.User.Register;
 
@@ -10,6 +11,6 @@ public class RegisterUserValidatorTest
     {
         var validator = new RegisterUserValidator();
         var result = validator.Validate(RequestRegisterUserJsonBuilder.Build());
-        Assert.True(result.IsValid);
+        result.IsValid.ShouldBeTrue();
     }
 }
