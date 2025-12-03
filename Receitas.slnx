@@ -8,6 +8,10 @@
   <Folder Name="/Shared/">
     <Project Path="Shared/MyRecipeBook.Exceptions/MyRecipeBook.Exceptions.csproj" />
   </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Commons/Commons.csproj" />
+    <Project Path="Tests/Validators.Test/Validators.Test.csproj" />
+  </Folder>
   <Project Path="Backend/MyRecipeBook.API/MyRecipeBookAPI.csproj" />
   <Project Path="Backend/MyRecipeBook.Application/MyRecipeBook.Application.csproj" />
   <Project Path="Backend/MyRecipeBook.Domain/MyRecipeBook.Domain.csproj" />
