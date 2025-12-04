@@ -12,6 +12,7 @@
     <Project Path="Tests/Commons/Commons.csproj" />
     <Project Path="Tests/UseCases.Test/UseCases.Test.csproj" />
     <Project Path="Tests/Validators.Test/Validators.Test.csproj" />
+    <Project Path="Tests/WebApi.Test/WebApi.Test.csproj" />
   </Folder>
   <Project Path="Backend/MyRecipeBook.API/MyRecipeBookAPI.csproj" />
   <Project Path="Backend/MyRecipeBook.Application/MyRecipeBook.Application.csproj" />
