@@ -1,6 +1,7 @@
 using Commons.Repositories;
 using Commons.Requests;
 using MyRecipeBook.Application.Services.Crypto;
+using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 using Shouldly;
 

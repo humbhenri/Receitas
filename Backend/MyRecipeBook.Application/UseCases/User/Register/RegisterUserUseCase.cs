@@ -1,14 +1,14 @@
-using System.Threading.Tasks;
 using Mapster;
 using MyRecipeBook.Application.Services.Crypto;
 using MyRecipeBook.Application.Services.Mappings;
-using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
+
+namespace MyRecipeBook.Application.UseCases.User.Register;
 
 public class RegisterUserUseCase : IRegisterUserUseCase
 {
