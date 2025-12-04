@@ -10,6 +10,7 @@
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="Tests/Commons/Commons.csproj" />
+    <Project Path="Tests/UseCases.Test/UseCases.Test.csproj" />
     <Project Path="Tests/Validators.Test/Validators.Test.csproj" />
   </Folder>
   <Project Path="Backend/MyRecipeBook.API/MyRecipeBookAPI.csproj" />

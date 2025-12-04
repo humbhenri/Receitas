@@ -28,7 +28,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
-        await validate(request);
+        await Validate(request);
 
         MappingConfigurations.Configure();
 
@@ -45,7 +45,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         };
     }
 
-    private async Task validate(RequestRegisterUserJson request)
+    private async Task Validate(RequestRegisterUserJson request)
     {
         var validator = new RegisterUserValidator();
         var result = validator.Validate(request);
