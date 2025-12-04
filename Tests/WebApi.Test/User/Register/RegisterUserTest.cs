@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Commons.Requests;
 using Microsoft.AspNetCore.Mvc.Testing;
+using MyRecipeBook.Exceptions;
 using Shouldly;
 
 namespace WebApi.Test.User.Register;
@@ -27,5 +28,20 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
         await using var responseBody = await response.Content.ReadAsStreamAsync();
         var responseData = await JsonDocument.ParseAsync(responseBody);
         responseData.RootElement.GetProperty("name").GetString().ShouldBe(request.Name);
+    }
+
+    [Fact]
+    public async Task Error_Empty_Name()
+    {
+        var request = RequestRegisterUserJsonBuilder.Build(6);
+        request.Name = string.Empty;
+        var response = await _httpClient.PostAsJsonAsync("User", request);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+        await using var responseBody = await response.Content.ReadAsStreamAsync();
+        var responseData = await JsonDocument.ParseAsync(responseBody);
+        var errors = responseData.RootElement.GetProperty("errors")
+            .EnumerateArray();
+        var errorMsg = Messages.name_empty;
+        errors.ShouldHaveSingleItem().GetString().ShouldBe(errorMsg);
     }
 }
