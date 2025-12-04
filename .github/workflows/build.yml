@@ -42,7 +42,7 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Run tests with code coverage
-        run: dotnet test --no-build --collect "Code Coverage" --results-directory ./TestResults
+        run: dotnet test --no-build --collect:"XPlat Code Coverage;Format=opencover" --results-directory ./TestResults
       - name: Analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
