@@ -48,6 +48,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"humbhenri_Receitas" /o:"humbhenri" /d:sonar.token="${{ secrets.SONAR_TOKEN }} /d:sonar.cs.opencover.reportsPaths="./TestResults/**/*.opencover.xml"
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"humbhenri_Receitas" /o:"humbhenri" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="./TestResults/**/*.opencover.xml"
           dotnet build --no-restore
           ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
