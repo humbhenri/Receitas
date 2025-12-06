@@ -6,10 +6,7 @@ using MyRecipeBook.Communication.Responses;
 
 namespace MyRecipeBookAPI.Controllers;
 
-[Route("[controller]")]
-[ApiController]
-
-public class UserController : ControllerBase
+public class UserController : MyRecipeBookBaseController
 {
     [HttpGet]
     public IActionResult Get()

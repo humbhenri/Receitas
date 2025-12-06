@@ -2,7 +2,7 @@ namespace MyRecipeBook.Exceptions.ExceptionsBase;
 
 public class ErrorOnValidationException : MyRecipeBookException
 {
-    public ErrorOnValidationException(IList<string> errorMessages)
+    public ErrorOnValidationException(IList<string> errorMessages): base(string.Empty)
     {
         ErrorMessages = errorMessages;
     }

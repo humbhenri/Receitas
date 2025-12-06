@@ -27,7 +27,12 @@ public class ExceptionFilter : IExceptionFilter
         {
             context.HttpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
             var errors = exception.ErrorMessages;
-            context.Result = new BadRequestObjectResult(new ResponseErrorJson(errors));
+            context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(errors));
+        }
+        else if (context.Exception is InvalidLoginException loginException)
+        {
+            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+            context.Result = new BadRequestObjectResult(new ResponseErrorJson(loginException.Message));
         }
     }
 
