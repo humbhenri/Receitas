@@ -21,17 +21,17 @@ public class ExceptionFilter : IExceptionFilter
         }
     }
 
-    private void HandleProjectException(ExceptionContext context)
+    private static void HandleProjectException(ExceptionContext context)
     {
-        if (context.Exception is ErrorOnValidationException)
+        if (context.Exception is ErrorOnValidationException exception)
         {
             context.HttpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
-            var errors = (context.Exception as ErrorOnValidationException).ErrorMessages;
+            var errors = exception.ErrorMessages;
             context.Result = new BadRequestObjectResult(new ResponseErrorJson(errors));
         }
     }
 
-    private void ThrowUnknownException(ExceptionContext context)
+    private static void ThrowUnknownException(ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
         context.Result = new ObjectResult(new ResponseErrorJson(Messages.unknown_error));

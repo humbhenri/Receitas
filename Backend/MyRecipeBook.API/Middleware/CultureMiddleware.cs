@@ -5,7 +5,7 @@ namespace MyRecipeBookAPI.Middleware;
 public class CultureMiddleware
 {
 
-    RequestDelegate _next;
+    readonly RequestDelegate _next;
 
     public CultureMiddleware(RequestDelegate next)
     {

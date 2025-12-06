@@ -28,7 +28,7 @@ public class RegisterUserUseCaseTest
         await act.ShouldThrowAsync<ErrorOnValidationException>();
     }
 
-    public RegisterUserUseCase CreateUseCase(string? email = null)
+    public static RegisterUserUseCase CreateUseCase(string? email = null)
     {
         var readOnlyRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
         if (!string.IsNullOrEmpty(email))

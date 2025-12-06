@@ -1,6 +1,5 @@
 using MyRecipeBookAPI.Filters;
 using MyRecipeBookAPI.Middleware;
-using MyRecipeBook.Application;
 using MyRecipeBook.Infrastructure;
 using MyRecipeBook.Infrastructure.Migrations;
 using MyRecipeBook.Infrastructure.Extensions;
@@ -30,13 +29,11 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// app.UseHttpsRedirection();
-
 app.UseMiddleware(typeof(CultureMiddleware));
 app.UseRouting();
 app.MapControllers();
 MigrateDatabase();
-app.Run();
+await app.RunAsync();
 
 void MigrateDatabase()
 {
