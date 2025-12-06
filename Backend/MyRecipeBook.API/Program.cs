@@ -11,9 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddRouting();
 builder.Services.AddControllers();
-builder.Services.AddMvc(options => options.Filters.Add(
-    typeof(ExceptionFilter)
-));
+builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -29,7 +27,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseMiddleware(typeof(CultureMiddleware));
+app.UseMiddleware<CultureMiddleware>();
 app.UseRouting();
 app.MapControllers();
 MigrateDatabase();
@@ -41,9 +39,4 @@ void MigrateDatabase()
         return;
     var connectionString = app.Configuration.ConnectionString();
     DatabaseMigration.Migrate(connectionString, app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
-}
-
-public partial class Program
-{
-
 }
