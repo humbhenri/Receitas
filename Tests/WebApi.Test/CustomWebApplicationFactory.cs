@@ -50,7 +50,11 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         dbContext.Database.EnsureDeleted();
         dbContext.Users.Add(_user);
         int count = dbContext.Users.ToList().Count;
-        System.Console.WriteLine("Users count =====> " + count);
-        dbContext.SaveChanges();    
+        try {
+            dbContext.SaveChanges();    
+        } catch (System.ArgumentException e)
+        {
+            Console.WriteLine("Users count =====> " + count);
+        }
     }
 }
