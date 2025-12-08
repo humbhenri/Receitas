@@ -6,7 +6,7 @@ using Shouldly;
 
 namespace WebApi.Test.Login.DoLogin;
 
-public class DoLoginTest(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
+public class DoLoginTest(CustomWebApplicationFactory factory) : MyRecipeBookFixture(factory)
 {
     private readonly string method = "login";
 
@@ -27,7 +27,7 @@ public class DoLoginTest(CustomWebApplicationFactory factory) : IClassFixture<Cu
             Password = _password
         };
 
-        var response = await _httpClient.PostAsJsonAsync(method, request);
+        var response = await DoPost(method, request);
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
         await using var responseBody = await response.Content.ReadAsStreamAsync();
         var responseData = await JsonDocument.ParseAsync(responseBody);

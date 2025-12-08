@@ -9,21 +9,15 @@ using Shouldly;
 
 namespace WebApi.Test.User.Register;
 
-public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
+public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBookFixture(factory)
 {
-
-    private readonly HttpClient _httpClient;
-
-    public RegisterUserTest(CustomWebApplicationFactory factory)
-    {
-        _httpClient = factory.CreateClient();
-    }
+    private readonly string method = "user";
 
     [Fact]
     public async Task Success()
     {
         var request = RequestRegisterUserJsonBuilder.Build(6);
-        var response = await _httpClient.PostAsJsonAsync("User", request);
+        var response = await DoPost(method, request);
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
         await using var responseBody = await response.Content.ReadAsStreamAsync();
         var responseData = await JsonDocument.ParseAsync(responseBody);
@@ -35,7 +29,7 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
         var request = RequestRegisterUserJsonBuilder.Build(6);
         request.Name = string.Empty;
-        var response = await _httpClient.PostAsJsonAsync("User", request);
+        var response = await DoPost(method, request);
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         await using var responseBody = await response.Content.ReadAsStreamAsync();
         var responseData = await JsonDocument.ParseAsync(responseBody);
