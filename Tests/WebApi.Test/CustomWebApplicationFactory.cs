@@ -52,7 +52,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         int count = dbContext.Users.ToList().Count;
         try {
             dbContext.SaveChanges();    
-        } catch (System.ArgumentException e)
+        } catch (System.ArgumentException)
         {
             Console.WriteLine("Users count =====> " + count);
         }
