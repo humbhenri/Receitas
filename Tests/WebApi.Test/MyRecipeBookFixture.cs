@@ -1,13 +1,19 @@
 
 using System.Net.Http.Json;
-using Azure.Core;
 
 namespace WebApi.Test;
 
-public class MyRecipeBookFixture(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
+public class MyRecipeBookFixture : IClassFixture<CustomWebApplicationFactory>
 {
     private const string LANG_HEADER = "Accept-Language";
-    private readonly HttpClient _httpClient = factory.CreateClient();
+    private readonly HttpClient _httpClient;
+
+#pragma warning disable IDE0290 // Use primary constructor
+    public MyRecipeBookFixture(CustomWebApplicationFactory factory)
+#pragma warning restore IDE0290 // Use primary constructor
+    {
+        _httpClient = factory.CreateClient();
+    }
 
     protected async Task<HttpResponseMessage> DoPost(string method, object request, string culture = "en")
     {

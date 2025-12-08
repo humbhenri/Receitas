@@ -2,7 +2,7 @@ using Commons;
 using Commons.Entities;
 using Commons.Repositories;
 using Commons.Requests;
-using MyRecipeBook.Application.Services.Crypto;
+using Commons.Tokens;
 using MyRecipeBook.Application.UseCases.Login.DoLogin;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Exceptions.ExceptionsBase;
@@ -24,6 +24,8 @@ public class DoLoginUseCaseTest
         };
         var result = await useCase.Execute(request);
         result.Name.ShouldBe(user.Name);
+        result.Tokens.ShouldNotBeNull();
+        result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
     }
 
     [Fact]  
@@ -39,10 +41,12 @@ public class DoLoginUseCaseTest
     {
         var encrypter = PasswordEncrypterBuilder.Build();
         var userReadOnlyRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
+        var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
         if (user is not null)
         {
             userReadOnlyRepositoryBuilder.GetByEmailAndPassword(user);
         }
-        return new DoLoginUseCase(userReadOnlyRepositoryBuilder.Build(), encrypter);
+        return new DoLoginUseCase(userReadOnlyRepositoryBuilder.Build(),
+         encrypter, accessTokenGenerator);
     }
 }

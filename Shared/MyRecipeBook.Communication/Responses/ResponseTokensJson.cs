@@ -1,4 +1,4 @@
-namespace Shared.MyRecipeBook.Communication.Responses;
+namespace MyRecipeBook.Communication.Responses;
 
 public class ResponseTokensJson
 {

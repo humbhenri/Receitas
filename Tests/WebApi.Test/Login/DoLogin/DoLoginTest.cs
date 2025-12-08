@@ -6,17 +6,24 @@ using Shouldly;
 
 namespace WebApi.Test.Login.DoLogin;
 
-public class DoLoginTest(CustomWebApplicationFactory factory) : MyRecipeBookFixture(factory)
+public class DoLoginTest : MyRecipeBookFixture
 {
     private readonly string method = "login";
 
-    private readonly HttpClient _httpClient = factory.CreateClient();
+    private readonly string _email;
 
-    private readonly string _email = factory.GetEmail();
+    private readonly string _password;
 
-    private readonly string _password = factory.GetPassword();
+    private readonly string _name;
 
-    private readonly string _name = factory.GetName();
+#pragma warning disable IDE0290 // Use primary constructor
+    public DoLoginTest(CustomWebApplicationFactory factory) : base(factory)
+#pragma warning restore IDE0290 // Use primary constructor
+    {
+        _email = factory.GetEmail();
+        _password = factory.GetPassword();
+        _name = factory.GetName();
+    }
 
     [Fact]
     public async Task Success()

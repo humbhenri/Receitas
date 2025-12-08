@@ -8,7 +8,6 @@ using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
-using Shared.MyRecipeBook.Communication.Responses;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
 

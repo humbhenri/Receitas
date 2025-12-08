@@ -1,5 +1,3 @@
-using Shared.MyRecipeBook.Communication.Responses;
-
 namespace MyRecipeBook.Communication.Responses;
 
 public class ResponseRegisteredUserJson

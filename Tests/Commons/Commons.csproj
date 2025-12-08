@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../Backend/MyRecipeBook.Application/MyRecipeBook.Application.csproj" />
+    <ProjectReference Include="../../Backend/MyRecipeBook.Infrastructure/MyRecipeBook.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
