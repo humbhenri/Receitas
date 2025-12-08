@@ -2,22 +2,19 @@ using MyRecipeBook.Application.Services.Crypto;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 
 namespace MyRecipeBook.Application.UseCases.Login.DoLogin;
 
-public class DoLoginUseCase : IDoLoginUseCase
+public class DoLoginUseCase(IUserReadOnlyRepository repository, PasswordEncrypter passwordEncrypter, IAccessTokenGenerator tokenGenerator) : IDoLoginUseCase
 {
 
-    private readonly IUserReadOnlyRepository _repository;
-    private readonly PasswordEncrypter _passwordEncrypter;
+    private readonly IUserReadOnlyRepository _repository = repository;
 
-    public DoLoginUseCase(IUserReadOnlyRepository repository, PasswordEncrypter passwordEncrypter)
-    {
-        _repository = repository;
-        _passwordEncrypter = passwordEncrypter;
-    }
+    private readonly PasswordEncrypter _passwordEncrypter = passwordEncrypter;
 
+    private readonly IAccessTokenGenerator _tokenGenerator = tokenGenerator;
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestLoginJson request)
     {

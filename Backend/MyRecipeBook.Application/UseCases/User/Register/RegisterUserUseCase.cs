@@ -5,35 +5,31 @@ using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
+using Shared.MyRecipeBook.Communication.Responses;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
 
-public class RegisterUserUseCase : IRegisterUserUseCase
+public class RegisterUserUseCase(IUserReadOnlyRepository readOnlyRepository, IUserWriteOnlyRepository writeOnlyRepository, PasswordEncrypter passwordEncrypter, IUnitOfWork unitOfWork, IAccessTokenGenerator tokenGenerator) : IRegisterUserUseCase
 {
 
-    private readonly IUserWriteOnlyRepository _writeOnlyRepository;
-    private readonly IUserReadOnlyRepository _readOnlyRepository;
-    private readonly PasswordEncrypter _passwordEncrypter;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserWriteOnlyRepository _writeOnlyRepository = writeOnlyRepository;
+    private readonly IUserReadOnlyRepository _readOnlyRepository = readOnlyRepository;
+    private readonly PasswordEncrypter _passwordEncrypter = passwordEncrypter;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IAccessTokenGenerator _tokenGenerator = tokenGenerator;
 
-    public RegisterUserUseCase(IUserReadOnlyRepository readOnlyRepository, IUserWriteOnlyRepository writeOnlyRepository, PasswordEncrypter passwordEncrypter, IUnitOfWork unitOfWork)
-    {
-        this._writeOnlyRepository = writeOnlyRepository;
-        this._readOnlyRepository = readOnlyRepository;
-        this._passwordEncrypter = passwordEncrypter;
-        this._unitOfWork = unitOfWork;
-    }
-    
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
         await Validate(request);
 
         MappingConfigurations.Configure();
 
-        var user = request.Adapt<MyRecipeBook.Domain.Entities.User>();
+        var user = request.Adapt<Domain.Entities.User>();
         user.Password = _passwordEncrypter.Encrypt(request.Password);
+        user.UserIdentifier = Guid.NewGuid();
 
         await _writeOnlyRepository.Add(user);
 
@@ -41,7 +37,11 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
         return new ResponseRegisteredUserJson
         {
-            Name = request.Name
+            Name = request.Name,
+            Tokens = new ResponseTokensJson
+            {
+                AccessToken = _tokenGenerator.Generate(user.UserIdentifier)
+            }
         };
     }
 

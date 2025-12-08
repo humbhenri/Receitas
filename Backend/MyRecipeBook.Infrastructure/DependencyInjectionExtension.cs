@@ -5,9 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Repositories;
+using MyRecipeBook.Infrastructure.Security.Tokens.Generator;
 
 namespace MyRecipeBook.Infrastructure;
 
@@ -20,6 +22,7 @@ public static class DependencyInjectionExtension
             return;
         AddDbContext(services, configuration);
         AddFluentMigrator(services, configuration);
+        AddTokens(services, configuration);
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
@@ -51,5 +54,13 @@ public static class DependencyInjectionExtension
                 .For
                 .All();
         });
+    }
+
+    private static void AddTokens(IServiceCollection services, IConfiguration configuration)
+    {
+        var expirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
+        var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
+        services.AddScoped<IAccessTokenGenerator>(option => 
+            new JwtTokenGenerator(signingKey!, expirationTimeMinutes));
     }
 }
