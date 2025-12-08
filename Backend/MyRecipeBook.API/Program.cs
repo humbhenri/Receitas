@@ -6,9 +6,6 @@ using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBookAPI.Converters;
 using Microsoft.OpenApi;
 using Microsoft.AspNetCore.OpenApi;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
