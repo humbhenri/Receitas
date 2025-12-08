@@ -4,12 +4,19 @@ using MyRecipeBook.Infrastructure;
 using MyRecipeBook.Infrastructure.Migrations;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBookAPI.Converters;
+using Microsoft.OpenApi;
+using Microsoft.AspNetCore.OpenApi;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+ options.AddDocumentTransformer<SecuritySchemeTransformer>();
+});
+
 builder.Services.AddRouting();
 builder.Services.AddControllers().AddJsonOptions(options => 
     options.JsonSerializerOptions.Converters.Add(new StringConverter()));
@@ -41,4 +48,36 @@ void MigrateDatabase()
         return;
     var connectionString = app.Configuration.ConnectionString();
     DatabaseMigration.Migrate(connectionString, app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
+}
+
+internal sealed class SecuritySchemeTransformer : IOpenApiDocumentTransformer
+{
+  public Task TransformAsync(OpenApiDocument document, OpenApiDocumentTransformerContext context, CancellationToken cancellationToken)
+  {
+    document.Components ??= new OpenApiComponents();
+    document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
+    document.Components.SecuritySchemes["Bearer"] = new OpenApiSecurityScheme
+    {
+      Type = SecuritySchemeType.Http,
+      Scheme = "bearer",
+      In = ParameterLocation.Header,
+      BearerFormat = "Json Web Token",
+      Description = "Jwt authentication"
+    };
+
+    // Iterate through each path & operation
+    foreach (var path in document.Paths.Values)
+    {
+      foreach (var operation in path.Operations!.Values)
+      {
+        operation.Security ??= new List<OpenApiSecurityRequirement>();
+        operation.Security.Add(new OpenApiSecurityRequirement
+        {
+          [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+        });
+      }
+    }
+
+    return Task.CompletedTask;
+  }
 }
