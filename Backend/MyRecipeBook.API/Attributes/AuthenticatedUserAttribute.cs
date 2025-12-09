@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc;
+using MyRecipeBookAPI.Filters;
 
 namespace MyRecipeBookAPI.Attributes;
 
-public class AuthenticatedUserAttribute : Attribute, IAuthorizationFilter
+public class AuthenticatedUserAttribute : TypeFilterAttribute
 {
-    public void OnAuthorization(AuthorizationFilterContext context)
+    public AuthenticatedUserAttribute() : base(typeof(AuthenticatedUserFilter))
     {
-        throw new NotImplementedException();
     }
 }

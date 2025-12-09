@@ -20,6 +20,11 @@ public class UserRepository(MyRecipeBookDbContext dbContext) : IUserReadOnlyRepo
         user.Active);
     }
 
+    public async Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifer)
+    {
+        return await _dbContext.Users.AnyAsync(user => user.Active && user.UserIdentifier.Equals(userIdentifer));
+    }
+
     public async Task<User?> GetByEmailAndPassword(string email, string password)
     {
         return await _dbContext

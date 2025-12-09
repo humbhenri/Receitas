@@ -6,6 +6,8 @@ using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBookAPI.Converters;
 using Microsoft.OpenApi;
 using Microsoft.AspNetCore.OpenApi;
+using MyRecipeBook.Domain.Security.Tokens;
+using MyRecipeBookAPI.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +22,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<ITokenProvider, HttpContextValue>();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
