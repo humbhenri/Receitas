@@ -19,6 +19,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetPassword() => _password;
 
     public string GetName() => _user.Name;
+    
+    public Guid GetUserIdentifier() => _user.UserIdentifier;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
