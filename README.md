@@ -9,7 +9,7 @@ docker compose up -d
 ## Para executar a api rest
 
 ```
-dotnet run Backend/MyRecipeBook.API/Program.cs
+dotnet run --project Backend/MyRecipeBook.API/MyRecipeBookAPI.csproj
 ```
 
 Abrir `http://localhost:5134/swagger/index.html`
