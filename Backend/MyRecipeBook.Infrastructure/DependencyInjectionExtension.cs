@@ -43,9 +43,10 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+        services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
-    
+
     private static void AddFluentMigrator(IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.ConnectionString();
@@ -64,9 +65,9 @@ public static class DependencyInjectionExtension
     {
         var expirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
         var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
-        services.AddScoped<IAccessTokenGenerator>(option => 
+        services.AddScoped<IAccessTokenGenerator>(option =>
             new JwtTokenGenerator(signingKey!, expirationTimeMinutes));
-        services.AddScoped<IAccessTokenValidator>(option => 
+        services.AddScoped<IAccessTokenValidator>(option =>
             new JwtTokenValidator(signingKey!));
     }
 

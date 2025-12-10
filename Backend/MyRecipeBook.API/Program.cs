@@ -17,7 +17,7 @@ builder.Services.AddOpenApi(options =>
 });
 
 builder.Services.AddRouting();
-builder.Services.AddControllers().AddJsonOptions(options => 
+builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new StringConverter()));
 builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
 builder.Services.AddApplication(builder.Configuration);
@@ -25,6 +25,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<ITokenProvider, HttpContextValue>();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

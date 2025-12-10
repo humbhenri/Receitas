@@ -1,0 +1,29 @@
+:PROPERTIES:
+:header-args:sh: :var host="http://localhost:5134"
+:END:
+
+#+name: login
+#+begin_src sh
+  curl -s $host/login -d '{"email": "test@test.com", "password": "123456"}' \
+       -H 'content-type: application/json'
+#+end_src
+
+#+RESULTS: login
+| {"name":"john" | tokens:{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiJiNTE5N2Q3MC1iOTgyLTQwMjktYWFjZi01MzNmODk3ZWQzNjAiLCJuYmYiOjE3NjUzOTc1MDYsImV4cCI6MTc2NTQ1NzUwNiwiaWF0IjoxNzY1Mzk3NTA2fQ.Y6ULGKWgacNaiYhiN5OZwLOXL5A1z9cfsRhr8xzMdXs"}} |
+
+#+begin_src sh
+curl -s $host/user -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiJiNTE5N2Q3MC1iOTgyLTQwMjktYWFjZi01MzNmODk3ZWQzNjAiLCJuYmYiOjE3NjUzOTY3MjksImV4cCI6MTc2NTQ1NjcyOSwiaWF0IjoxNzY1Mzk2NzI5fQ.fUMMHTA3wtKxz59B9aq0tbzyG_9mzwg3ORVVeMX5sGY'
+#+end_src
+
+#+RESULTS:
+| {"name":"john" | email:"test@test.com"} |
+
+#+name: register_user
+#+begin_src sh
+  curl -s $host/user -d '{"name": "john"}' -H 'content-type: application/json'
+#+end_src
+
+#+begin_src sh
+  curl -s -XPUT $host/user -d '{"name": "john", "email": "test@test.com"}' -H 'content-type: application/json' \
+       -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiJiNTE5N2Q3MC1iOTgyLTQwMjktYWFjZi01MzNmODk3ZWQzNjAiLCJuYmYiOjE3NjUzOTY3MjksImV4cCI6MTc2NTQ1NjcyOSwiaWF0IjoxNzY1Mzk2NzI5fQ.fUMMHTA3wtKxz59B9aq0tbzyG_9mzwg3ORVVeMX5sGY'
+#+end_src
