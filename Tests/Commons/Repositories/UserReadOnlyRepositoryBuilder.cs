@@ -22,6 +22,11 @@ public class UserReadOnlyRepositoryBuilder
             .ReturnsAsync(user);
     }
 
+    public void GetById(User user)
+    {
+        _mock.Setup(repository => repository.GetById(user.Id)).ReturnsAsync(user);
+    }
+
     public IUserReadOnlyRepository Build()
     {
         return _mock.Object;
