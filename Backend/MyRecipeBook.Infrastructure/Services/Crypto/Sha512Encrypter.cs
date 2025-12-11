@@ -1,14 +1,16 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace MyRecipeBook.Application.Services.Crypto;
+using MyRecipeBook.Domain.Security.Crypto;
 
-public class PasswordEncrypter
+namespace MyRecipeBook.Infrastructure.Services.Crypto;
+
+public class Sha512Encrypter : IPasswordEncrypter
 {
 
     private readonly string _additionalKey;
 
-    public PasswordEncrypter(string additionalKey)
+    public Sha512Encrypter(string additionalKey)
     {
         _additionalKey = additionalKey;
     }
@@ -31,4 +33,5 @@ public class PasswordEncrypter
         }
         return sb.ToString();
     }
+
 }

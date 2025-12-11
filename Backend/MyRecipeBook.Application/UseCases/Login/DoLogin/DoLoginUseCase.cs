@@ -1,7 +1,7 @@
-using MyRecipeBook.Application.Services.Crypto;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Crypto;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 
@@ -12,12 +12,12 @@ public class DoLoginUseCase : IDoLoginUseCase
 
     private readonly IUserReadOnlyRepository _repository;
 
-    private readonly PasswordEncrypter _passwordEncrypter;
+    private readonly IPasswordEncrypter _passwordEncrypter;
 
     private readonly IAccessTokenGenerator _tokenGenerator;
 
 #pragma warning disable IDE0290 // Use primary constructor
-    public DoLoginUseCase(IUserReadOnlyRepository repository, PasswordEncrypter passwordEncrypter, IAccessTokenGenerator tokenGenerator)
+    public DoLoginUseCase(IUserReadOnlyRepository repository, IPasswordEncrypter passwordEncrypter, IAccessTokenGenerator tokenGenerator)
 #pragma warning restore IDE0290 // Use primary constructor
     {
         _repository = repository;

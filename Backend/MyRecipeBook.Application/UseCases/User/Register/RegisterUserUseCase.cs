@@ -1,22 +1,22 @@
 using Mapster;
-using MyRecipeBook.Application.Services.Crypto;
 using MyRecipeBook.Application.Services.Mappings;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Crypto;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
 
-public class RegisterUserUseCase(IUserReadOnlyRepository readOnlyRepository, IUserWriteOnlyRepository writeOnlyRepository, PasswordEncrypter passwordEncrypter, IUnitOfWork unitOfWork, IAccessTokenGenerator tokenGenerator) : IRegisterUserUseCase
+public class RegisterUserUseCase(IUserReadOnlyRepository readOnlyRepository, IUserWriteOnlyRepository writeOnlyRepository, IPasswordEncrypter passwordEncrypter, IUnitOfWork unitOfWork, IAccessTokenGenerator tokenGenerator) : IRegisterUserUseCase
 {
 
     private readonly IUserWriteOnlyRepository _writeOnlyRepository = writeOnlyRepository;
     private readonly IUserReadOnlyRepository _readOnlyRepository = readOnlyRepository;
-    private readonly PasswordEncrypter _passwordEncrypter = passwordEncrypter;
+    private readonly IPasswordEncrypter _passwordEncrypter = passwordEncrypter;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IAccessTokenGenerator _tokenGenerator = tokenGenerator;
 

@@ -1,7 +1,7 @@
+using Commons;
 using Commons.Repositories;
 using Commons.Requests;
 using Commons.Tokens;
-using MyRecipeBook.Application.Services.Crypto;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 using Shouldly;
@@ -40,7 +40,7 @@ public class RegisterUserUseCaseTest
         }
         var writeOnlyRepository = UserWriteOnlyRepositoryBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
-        var passwordEncrypter = new PasswordEncrypter("test");
+        var passwordEncrypter = PasswordEncrypterBuilder.Build();
         var accessToken = JwtTokenGeneratorBuilder.Build();
         var useCase = new RegisterUserUseCase(
             readOnlyRepositoryBuilder.Build(),

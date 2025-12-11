@@ -1,3 +1,4 @@
+using MyRecipeBook.Application;
 using MyRecipeBookAPI.Filters;
 using MyRecipeBookAPI.Middleware;
 using MyRecipeBook.Infrastructure;
