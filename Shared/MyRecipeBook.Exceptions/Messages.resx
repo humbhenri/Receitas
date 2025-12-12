@@ -144,4 +144,7 @@
   <data name="forbidden" xml:space="preserve">
     <value>User has no permission to do this action</value>
   </data>
+  <data name="password_invalid" xml:space="preserve">
+    <value>Invalid password</value>
+  </data>
 </root>
