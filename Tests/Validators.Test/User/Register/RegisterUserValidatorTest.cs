@@ -52,6 +52,6 @@ public class RegisterUserValidatorTest
         var result = validator.Validate(request);
         result.IsValid.ShouldBeFalse();
         result.Errors.ShouldHaveSingleItem();
-        result.Errors.ShouldAllBe(e => e.ErrorMessage.Equals("Password cannot be empty"));
+        result.Errors.ShouldAllBe(e => e.ErrorMessage.Equals("Invalid password"));
     }
 }
