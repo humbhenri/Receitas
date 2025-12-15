@@ -9,6 +9,6 @@ public static class RequestChangePasswordJsonBuilder
     {
         return new Faker<RequestChangePasswordJson>()
             .RuleFor(user => user.Password, (f) => f.Internet.Password(6))
-            .RuleFor(user => user.NewPassword, (f, r) => r.Password);
+            .RuleFor(user => user.NewPassword, (f) => f.Internet.Password(6));
     }
 }

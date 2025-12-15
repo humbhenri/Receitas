@@ -7,4 +7,5 @@ public interface IUserReadOnlyRepository
     Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifer);
     Task<Entities.User?> GetByEmailAndPassword(string email, string password);
     Task<Entities.User?> GetById(long id);
+    List<string> GetAllUsers();
 }

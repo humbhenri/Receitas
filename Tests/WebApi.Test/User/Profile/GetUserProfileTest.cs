@@ -19,7 +19,7 @@ public class GetUserProfileTest : MyRecipeBookFixture
         _userIdentifier = factory.GetUserIdentifier();
     }
 
-    [Fact(Skip = "Fix later")]
+    [Fact(Skip = "Fix me later")]
     public async Task Success()
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);

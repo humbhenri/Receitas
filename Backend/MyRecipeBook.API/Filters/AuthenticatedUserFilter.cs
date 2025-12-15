@@ -44,6 +44,7 @@ public class AuthenticatedUserFilter : IAsyncAuthorizationFilter
         }
         catch
         {
+
             context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(Messages.forbidden));
         }
     }

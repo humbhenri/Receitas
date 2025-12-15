@@ -26,6 +26,7 @@ public class JwtTokenGenerator(string signKey, uint expirationTimeMinutes = 0) :
         };
         var tokenHandler = new JwtSecurityTokenHandler();
         var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(securityToken);
+        var token = tokenHandler.WriteToken(securityToken);
+        return token;
     }
 }

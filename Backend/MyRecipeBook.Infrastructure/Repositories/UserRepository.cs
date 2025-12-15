@@ -1,3 +1,4 @@
+using Dapper;
 using Microsoft.EntityFrameworkCore;
 using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Domain.Repositories.User;
@@ -24,6 +25,11 @@ public class UserRepository(MyRecipeBookDbContext dbContext) : IUserReadOnlyRepo
     public async Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifer)
     {
         return await _dbContext.Users.AnyAsync(user => user.Active && user.UserIdentifier.Equals(userIdentifer));
+    }
+
+    public List<string> GetAllUsers()
+    {
+        return _dbContext.Users.Select(user => user.UserIdentifier.ToString()).ToList();
     }
 
     public async Task<User?> GetByEmailAndPassword(string email, string password)
