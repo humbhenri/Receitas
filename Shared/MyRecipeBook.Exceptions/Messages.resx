@@ -147,4 +147,13 @@
   <data name="password_invalid" xml:space="preserve">
     <value>Invalid password</value>
   </data>
+  <data name="recipe_empty_title" xml:space="preserve">
+    <value>Recipe must have a title</value>
+  </data>
+  <data name="cooking_time_not_supported" xml:space="preserve">
+    <value>Cooking type not supported</value>
+  </data>
+  <data name="difficulty_not_supported" xml:space="preserve">
+    <value>Difficulty not supported</value>
+  </data>
 </root>
