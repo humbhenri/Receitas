@@ -1,5 +1,7 @@
 DOTNET=${HOME}/.dotnet/dotnet
 
+.PHONY=test run
+
 test:
 	${DOTNET} test
 
