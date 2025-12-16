@@ -156,4 +156,28 @@
   <data name="difficulty_not_supported" xml:space="preserve">
     <value>Difficulty not supported</value>
   </data>
+  <data name="at_least_one_ingredient" xml:space="preserve">
+    <value>At least one ingredient is necessary</value>
+  </data>
+  <data name="at_least_one_instruction" xml:space="preserve">
+    <value>At least one instruction is necessary</value>
+  </data>
+  <data name="dish_type_not_supported" xml:space="preserve">
+    <value>Dish type not supported</value>
+  </data>
+  <data name="ingredient_empty" xml:space="preserve">
+    <value>Ingredient empty</value>
+  </data>
+  <data name="non_negative_step" xml:space="preserve">
+    <value>Step must be grater than 0</value>
+  </data>
+  <data name="empty_instruction" xml:space="preserve">
+    <value>Empty instruction</value>
+  </data>
+  <data name="instructions_too_big" xml:space="preserve">
+    <value>Instructions too big</value>
+  </data>
+  <data name="steps_must_be_unique" xml:space="preserve">
+    <value>Steps must be unique</value>
+  </data>
 </root>
