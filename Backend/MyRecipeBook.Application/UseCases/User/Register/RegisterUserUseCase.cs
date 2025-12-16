@@ -24,8 +24,6 @@ public class RegisterUserUseCase(IUserReadOnlyRepository readOnlyRepository, IUs
     {
         await Validate(request);
 
-        MappingConfigurations.Configure();
-
         var user = request.Adapt<Domain.Entities.User>();
         user.Password = _passwordEncrypter.Encrypt(request.Password);
         user.UserIdentifier = Guid.NewGuid();

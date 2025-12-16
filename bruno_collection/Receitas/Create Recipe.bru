@@ -1,0 +1,38 @@
+meta {
+  name: Create Recipe
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{url}}/recipe
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiJjZWYxNzI5ZS05MzNhLTQ2YzgtYjMyZi01MjIzNjE1ZTNiYjEiLCJuYmYiOjE3NjU5MTQxNTQsImV4cCI6MTc2NTk3NDE1NCwiaWF0IjoxNzY1OTE0MTU0fQ.MtKXD2NnLktY8yhHuvJjlX32MB9xpcBItpCQyE2G29Y
+}
+
+body:json {
+  {
+    "title": "Receita 1",
+    "ingredients": [
+      "farinha"
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "ponha a farinha"
+      }
+    ],
+    "dishTypes": [
+      0
+    ]
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

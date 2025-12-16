@@ -1,13 +1,21 @@
 using Mapster;
 using MyRecipeBook.Communication.Requests;
+using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Entities;
+using Sqids;
 
 namespace MyRecipeBook.Application.Services.Mappings;
 
 public static class MappingConfigurations
 {
-    public static void Configure()
+    public static void Configure(string alphabet)
     {
+        var sqids = new SqidsEncoder<long>(new()
+        {
+            MinLength = 3,
+            Alphabet = alphabet
+        });
+
         TypeAdapterConfig<RequestRegisterUserJson, User>
             .NewConfig()
             .Ignore(dest => dest.Password);
@@ -20,11 +28,14 @@ public static class MappingConfigurations
 
         TypeAdapterConfig<string, Ingredient>
             .NewConfig()
-            .Map(dest => dest.Item, opt => opt);
+            .MapWith(str => new Ingredient { Item = str });
 
         TypeAdapterConfig<Domain.Enums.DishType, DishType>
             .NewConfig()
             .Map(dest => dest.Type, opt => opt);
 
+        TypeAdapterConfig<Recipe, ResponseRegisteredRecipeJson>
+            .NewConfig()
+            .Map(dest => dest.Id, src => sqids.Encode(src.Id));
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.OpenApi;
 using Microsoft.AspNetCore.OpenApi;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBookAPI.Token;
+using MyRecipeBook.Application.Services.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,7 @@ app.UseMiddleware<CultureMiddleware>();
 app.UseRouting();
 app.MapControllers();
 MigrateDatabase();
+ConfigureMappings();
 await app.RunAsync();
 
 void MigrateDatabase()
@@ -51,6 +53,12 @@ void MigrateDatabase()
         return;
     var connectionString = app.Configuration.ConnectionString();
     DatabaseMigration.Migrate(connectionString, app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
+}
+
+void ConfigureMappings()
+{
+  var alphabet = builder.Configuration.GetValue<string>("Settings:IdCryptographyAlphabet");
+  MappingConfigurations.Configure(alphabet!);
 }
 
 internal sealed class SecuritySchemeTransformer : IOpenApiDocumentTransformer

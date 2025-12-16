@@ -18,7 +18,6 @@ public class GetUserProfileUseCase : IGetUserProfileUseCase
 
     public async Task<ResponseUserProfileJson> Execute()
     {
-        MappingConfigurations.Configure();
         var user = await _loggedUser.User();
         return user.Adapt<ResponseUserProfileJson>();
     }
