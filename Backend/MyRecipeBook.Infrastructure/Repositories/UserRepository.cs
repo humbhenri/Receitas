@@ -42,7 +42,7 @@ public class UserRepository(MyRecipeBookDbContext dbContext) : IUserReadOnlyRepo
                 && user.Active);
     }
 
-    public async Task<User> GetById(long id)
+    public async Task<User?> GetById(long id)
     {
         return await _dbContext
             .Users
