@@ -180,4 +180,7 @@
   <data name="steps_must_be_unique" xml:space="preserve">
     <value>Steps must be unique</value>
   </data>
+  <data name="recipe_not_found" xml:space="preserve">
+    <value>Recipe not found</value>
+  </data>
 </root>
