@@ -23,10 +23,18 @@ public class FilterRecipeUseCase : IFilterRecipeUseCase
     {
         Validate(request);
         var user = await loggedUser.User();
-        var filter = request.Adapt<FilterRecipesDto>();
-        var result = await repository.Filter(user, filter);
-        var response = result.Adapt<ResponseRecipesJson>();
-        return response;
+        var filters = new FilterRecipesDto
+        {
+            RecipeTitle_Ingredient = request.RecipeTitle_Ingredient,
+            CookingTimes = [.. request.CookingTimes.Distinct().Select(c => (Domain.Enums.CookingTime) c)],
+            Difficulties = [.. request.Difficulties.Distinct().Select(c => (Domain.Enums.Difficulty) c)],
+            DishTypes = [.. request.DishTypes.Distinct().Select(c => (Domain.Enums.DishType) c)]
+        };
+        var recipes = await repository.Filter(user, filters);
+        return new ResponseRecipesJson
+        {
+            Recipes = recipes.Adapt<List<ResponseShortRecipeJson>>()
+        };
     }
 
     private void Validate(RequestFilterRecipeJson request)
