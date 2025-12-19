@@ -37,4 +37,16 @@ public class RecipeController : MyRecipeBookBaseController
         }
         return NoContent();
     }
+
+    [HttpPost("id")]
+    [ProducesResponseType(typeof(ResponseRecipeJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(
+        [FromServices] IGetRecipeByIdUseCase useCase,
+        [FromRoute] string id
+    )
+    {
+        var response = await useCase.Execute(long.Parse(id));
+        return Ok(response);
+    }
 }

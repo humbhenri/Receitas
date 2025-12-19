@@ -37,5 +37,10 @@ public static class MappingConfigurations
         TypeAdapterConfig<Recipe, ResponseRegisteredRecipeJson>
             .NewConfig()
             .Map(dest => dest.Id, src => sqids.Encode(src.Id));
+
+        TypeAdapterConfig<Recipe, ResponseShortRecipeJson>
+            .NewConfig()
+            .Map(dest => dest.Id, src => sqids.Encode(src.Id))
+            .Map(dest => dest.AmountIngredients, src => src.Ingredients.Count);
     }
 }

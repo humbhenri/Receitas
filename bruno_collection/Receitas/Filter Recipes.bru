@@ -1,0 +1,26 @@
+meta {
+  name: Filter Recipes
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{url}}/recipe/filter
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiJjZWYxNzI5ZS05MzNhLTQ2YzgtYjMyZi01MjIzNjE1ZTNiYjEiLCJuYmYiOjE3NjYxNzIwMDQsImV4cCI6MTc2NjIzMjAwNCwiaWF0IjoxNzY2MTcyMDA0fQ.DdG66TPYRg0FhqufAlTBfGWBD_lyOHZVL5hpM981dwY
+}
+
+body:json {
+  {
+    
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
