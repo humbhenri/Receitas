@@ -2,6 +2,7 @@ using Moq;
 using MyRecipeBook.Domain.Dtos;
 using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Domain.Repositories.Recipe;
+using MyRecipeBook.Domain.Services;
 
 namespace Commons.Repositories;
 
@@ -22,4 +23,10 @@ public class RecipeReadOnlyRepositoryBuilder
     }
 
     public IRecipeReadOnlyRepository Build() => repository.Object;
+
+    public RecipeReadOnlyRepositoryBuilder GetById(User user, Recipe recipe)
+    {
+        repository.Setup(r => r.GetById(user, It.IsAny<long>())).ReturnsAsync(recipe);
+        return this;
+    }
 }
