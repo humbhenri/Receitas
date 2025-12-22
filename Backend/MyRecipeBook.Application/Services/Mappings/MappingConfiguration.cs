@@ -26,9 +26,9 @@ public static class MappingConfigurations
             .Map(dest => dest.Ingredients, src => src.Ingredients.Distinct())
             .Map(dest => dest.DishTypes, src => src.DishTypes.Distinct());
 
-        TypeAdapterConfig<string, Ingredient>
+        TypeAdapterConfig<string, Domain.Entities.Ingredient>
             .NewConfig()
-            .MapWith(str => new Ingredient { Item = str });
+            .MapWith(str => new Domain.Entities.Ingredient { Item = str });
 
         TypeAdapterConfig<Domain.Enums.DishType, DishType>
             .NewConfig()
@@ -42,5 +42,14 @@ public static class MappingConfigurations
             .NewConfig()
             .Map(dest => dest.Id, src => sqids.Encode(src.Id))
             .Map(dest => dest.AmountIngredients, src => src.Ingredients.Count);
+
+        TypeAdapterConfig<string, Communication.Responses.Ingredient>
+            .NewConfig()
+            .MapWith(str => new Communication.Responses.Ingredient { Item = str });
+
+        TypeAdapterConfig<DishType, Communication.Enums.DishType>
+            .NewConfig()
+            .Map(dest => dest, src => src.Type);
+
     }
 }

@@ -3,6 +3,7 @@ using MyRecipeBook.Application.UseCases.Recipe;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBookAPI.Attributes;
+using MyRecipeBookAPI.Binders;
 
 namespace MyRecipeBookAPI.Controllers;
 
@@ -38,15 +39,15 @@ public class RecipeController : MyRecipeBookBaseController
         return NoContent();
     }
 
-    [HttpPost("id")]
+    [HttpGet("{id}")]
     [ProducesResponseType(typeof(ResponseRecipeJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(
         [FromServices] IGetRecipeByIdUseCase useCase,
-        [FromRoute] string id
+        [FromRoute][ModelBinder(typeof(MyRecipeBookIdBinder))] long id
     )
     {
-        var response = await useCase.Execute(long.Parse(id));
+        var response = await useCase.Execute(id);
         return Ok(response);
     }
 }

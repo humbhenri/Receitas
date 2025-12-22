@@ -5,6 +5,7 @@ using MyRecipeBook.Application.UseCases.Recipe;
 using MyRecipeBook.Application.UseCases.User.Password;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
+using Sqids;
 
 namespace MyRecipeBook.Application;
 
@@ -13,6 +14,7 @@ public static class DependencyInjectionExtension
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
         AddUseCases(services);
+        AddIdEncoder(services, configuration);
     }
 
     public static void AddUseCases(IServiceCollection services)
@@ -25,5 +27,15 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterRecipeUseCase, RegisterRecipeUseCase>();
         services.AddScoped<IFilterRecipeUseCase, FilterRecipeUseCase>();
         services.AddScoped<IGetRecipeByIdUseCase, GetRecipeByIdUseCase>();
+    }
+
+    private static void AddIdEncoder(IServiceCollection services, IConfiguration configuration)
+    {
+       var sqids = new SqidsEncoder<long>(new()
+       {
+           MinLength = 3,
+           Alphabet = configuration.GetValue<string>("Settings:IdCryptographyAlphabet")!
+       });
+       services.AddSingleton(sqids);
     }
 }
