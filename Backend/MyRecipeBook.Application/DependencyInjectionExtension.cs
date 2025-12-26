@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyRecipeBook.Application.UseCases.Dashboard;
 using MyRecipeBook.Application.UseCases.Login.DoLogin;
 using MyRecipeBook.Application.UseCases.Recipe;
+using MyRecipeBook.Application.UseCases.Recipe.Generate;
 using MyRecipeBook.Application.UseCases.User.Password;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
@@ -31,6 +32,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IDeleteRecipeUseCase, DeleteRecipeUseCase>();
         services.AddScoped<IUpdateRecipeUseCase, UpdateRecipeUseCase>();
         services.AddScoped<IGetDashboardUseCase, GetDashboardUseCase>();
+        services.AddScoped<IGenerateRecipeUseCase, GenerateRecipeUseCase>();
     }
 
     private static void AddIdEncoder(IServiceCollection services, IConfiguration configuration)

@@ -183,4 +183,10 @@
   <data name="recipe_not_found" xml:space="preserve">
     <value>Recipe not found</value>
   </data>
+  <data name="wrong_number_ingredients" xml:space="preserve">
+    <value>Wrong number of ingredients</value>
+  </data>
+  <data name="ingredient_not_following_pattern" xml:space="preserve">
+    <value>Ingredient not following pattern</value>
+  </data>
 </root>

@@ -9,6 +9,7 @@ using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Security.Crypto;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services;
+using MyRecipeBook.Domain.Services.OpenAI;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Repositories;
@@ -16,6 +17,7 @@ using MyRecipeBook.Infrastructure.Security.Tokens.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Validator;
 using MyRecipeBook.Infrastructure.Services;
 using MyRecipeBook.Infrastructure.Services.Crypto;
+using MyRecipeBook.Infrastructure.Services.OpenAI;
 
 namespace MyRecipeBook.Infrastructure;
 
@@ -81,6 +83,7 @@ public static class DependencyInjectionExtension
     private static void AddServices(IServiceCollection services)
     {
         services.AddScoped<ILoggedUser, LoggedUser>();
+        services.AddScoped<IGenerateRecipeAI, GenerateRecipeAI>();
     }
 
     private static void AddPasswordEncrypter(IServiceCollection services, IConfiguration configuration)
