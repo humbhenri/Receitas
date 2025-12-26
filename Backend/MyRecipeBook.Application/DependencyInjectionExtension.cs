@@ -27,6 +27,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterRecipeUseCase, RegisterRecipeUseCase>();
         services.AddScoped<IFilterRecipeUseCase, FilterRecipeUseCase>();
         services.AddScoped<IGetRecipeByIdUseCase, GetRecipeByIdUseCase>();
+        services.AddScoped<IDeleteRecipeUseCase, DeleteRecipeUseCase>();
     }
 
     private static void AddIdEncoder(IServiceCollection services, IConfiguration configuration)

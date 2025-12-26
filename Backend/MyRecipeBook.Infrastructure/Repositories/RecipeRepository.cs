@@ -20,6 +20,12 @@ public sealed class RecipeRepository : IRecipeWriteOnlyRepository, IRecipeReadOn
         await _dbContext.AddAsync(recipe);
     }
 
+    public async Task Delete(Recipe recipe)
+    {
+        var r = await _dbContext.Recipes.FindAsync(recipe.Id); // because of as no tracking
+        _dbContext.Remove(r!);
+    }
+
     public async Task<IList<Recipe>> Filter(User user, FilterRecipesDto filter)
     {
         var query = _dbContext.Recipes.AsNoTracking()
