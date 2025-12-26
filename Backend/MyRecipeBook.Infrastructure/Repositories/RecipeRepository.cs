@@ -79,4 +79,14 @@ public sealed class RecipeRepository : IRecipeWriteOnlyRepository, IRecipeReadOn
     }
 
     public void Update(Recipe recipe) => _dbContext.Update(recipe);
+
+    public async Task<IList<Recipe>> GetForDashboard(User user)
+    {
+        return await _dbContext.Recipes.AsNoTracking()
+            .Where(recipe => recipe.Active && recipe.UserId == user.Id)
+            .Include(r => r.Ingredients)
+            .OrderByDescending(r => r.CreatedOn)
+            .Take(5)
+            .ToListAsync();
+    }
 }
