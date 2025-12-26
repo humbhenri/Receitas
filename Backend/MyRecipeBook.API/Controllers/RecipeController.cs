@@ -62,4 +62,17 @@ public class RecipeController : MyRecipeBookBaseController
         await useCase.Execute(id);
         return NoContent();
     }
+
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateRecipeUseCase useCase,
+        [FromRoute][ModelBinder(typeof(MyRecipeBookIdBinder))] long id,
+        [FromBody] RequestRecipeJson request
+    )
+    {
+        await useCase.Execute(id, request);
+        return NoContent();
+    }
 }

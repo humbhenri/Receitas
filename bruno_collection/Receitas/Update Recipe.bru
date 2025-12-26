@@ -1,0 +1,34 @@
+meta {
+  name: Update Recipe
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{url}}/recipe/Grm
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Farinha",
+    "ingredients": [
+      "farinha"
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "ponha a farinha"
+      }
+    ],
+    "dishTypes": [
+      0
+    ]
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
